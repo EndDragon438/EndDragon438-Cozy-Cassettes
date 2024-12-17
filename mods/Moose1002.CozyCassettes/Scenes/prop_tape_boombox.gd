@@ -37,6 +37,7 @@ func _ready():
 		_cassette_player_ui.connect("play_cassette", self, "_sync_play_player")
 		_cassette_player_ui.connect("stop_cassette", self, "_sync_stop_player")
 		_cassette_player_ui.connect("fastforward", self, "_sync_fastforward")
+		_cassette_player_ui.connect("shuffle", self, "_sync_shuffle")
 		_cassette_player_ui.connect("rewind", self, "_sync_rewind")
 
 func _update_timer():
@@ -134,6 +135,14 @@ func _rewind():
 	_scrubbing_stop_sfx_played = false
 	sfx.stream = CASSETTE_SCRUB
 	sfx.play()
+	
+func _shuffle():
+	#TODO: Implement shuffle function
+	#I might need to do this in a different script somehow.
+	#I don't know how godot works
+	_stop_player()
+	_loaded_cassette_dir = Moose1002CozyCassettes.get_cassette_dir(cassette_id)
+	_song_files = Moose1002CozyCassettes.shuffle(_loaded_cassette_dir)
 
 # Network sync calls
 func _sync_load_cassette(tape):
@@ -155,6 +164,10 @@ func _sync_play_player():
 func _sync_fastforward():
 	_fastforward()
 	Network._send_actor_action(actor_id, "_fastforward", [], true)
+	
+func _sync_shuffle():
+	_shuffle()
+	Network._send_actor_action(actor_id, "_shuffle", [], true)
 
 func _sync_rewind():
 	_rewind()

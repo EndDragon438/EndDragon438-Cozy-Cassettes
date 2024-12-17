@@ -42,6 +42,9 @@ func get_song_files(path: String):
 		print("No songs found in:" + path)
 	return song_files
 
+func shuffle(path: String):
+	return get_song_files(path).shuffle()
+
 func patch_cassette_audiobus():
 	# Piggyback off of the pre-existing "Radio" audio bus
 	var audioBusID = AudioServer.get_bus_index("Radio")

@@ -70,3 +70,7 @@ func _update_item(items):
 func update_timer(time):
 	cassette_timer_label.text = time
 		
+
+# Shuffle implementation by EndDragon438
+func _on_shuffle_button_pressed():
+	emit_signal("shuffle")
